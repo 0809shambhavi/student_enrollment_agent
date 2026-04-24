@@ -62,8 +62,6 @@ Returns:
 * Tuition
 * Prerequisites
 
----
-
 ### 2. `get_deadlines(program_name: str)`
 
 Returns:
@@ -71,8 +69,6 @@ Returns:
 * Application deadline
 * Document submission deadline
 * Decision date
-
----
 
 ### 3. `check_application_status(applicant_id: str)`
 
@@ -99,7 +95,7 @@ The agent maintains session-level memory:
 
 * Enables **multi-turn conversations**
 * Resolves references like *“that”*
-* Avoids asking repeated questions
+* Avoids repeated questions
 
 ---
 
@@ -143,6 +139,7 @@ We offer BSc Computer Science which is 4 years long. Tuition is $40,000/year. Pr
 
 Turn 2 USER: What's the application deadline for that?
 
+[THOUGHT] Processing user input...
 [THOUGHT] Detected intent: deadlines
 [ACTION] Calling get_deadlines
 [OBSERVATION] Deadline info retrieved
@@ -153,6 +150,7 @@ For Computer Science, the application deadline is June 30, documents must be sub
 
 Turn 3 USER: I already applied. My ID is APP-1042. What's my status?
 
+[THOUGHT] Processing user input...
 [OBSERVATION] Detected applicant ID: APP-1042
 [THOUGHT] Detected intent: application_status
 [ACTION] Calling check_application_status
@@ -164,6 +162,8 @@ Hi John Doe, your application for Computer Science is currently 'Documents Pendi
 
 Turn 4 USER: Can I get a fee waiver?
 
+[THOUGHT] Processing user input...
+[THOUGHT] Detected intent: unsupported
 [THOUGHT] Unsupported query → escalate
 
 AGENT:
@@ -172,6 +172,8 @@ I can't help with fee waivers directly, but I can connect you to an enrollment c
 
 Turn 5 USER: What documents do I still need to submit?
 
+[THOUGHT] Processing user input...
+[THOUGHT] Detected intent: documents
 [OBSERVATION] Using previous application status
 
 AGENT:
@@ -194,6 +196,22 @@ pip install -r requirements.txt
 
 ```bash
 python main.py
+```
+
+---
+
+## Run with Docker
+
+### Build the Docker image
+
+```bash
+docker build -t enrollment-agent .
+```
+
+### Run the container
+
+```bash
+docker run -it enrollment-agent
 ```
 
 ---
@@ -221,7 +239,7 @@ It can be extended to:
 ## Future Improvements
 
 * Integrate LLM-based tool calling
-* Replace mock data with database
+* Replace mock data with real database
 * Build REST API (FastAPI)
 * Add UI (Streamlit / React)
 
@@ -230,13 +248,16 @@ It can be extended to:
 ## Project Structure
 
 ```
-student_enrollment_agent/
+student-enrollment-agent/
 │── agent.py
 │── tools.py
 │── memory.py
 │── main.py
 │── requirements.txt
+│── Dockerfile
+│── .dockerignore
 │── README.md
+│── DOCUMENTATION.md
 ```
 
 ---
